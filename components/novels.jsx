@@ -32,7 +32,12 @@ export default () => {
       <Search term={searchTerm} setter={setSearchTerm} />
       {
         filteredNovelList.map(novel => (
-          <Novel key={novel.id} id={novel.id} title={novel.title} name={`by ${novel.author.nameFirst} ${novel.author.nameLast}`} />
+          <Novel
+            key={novel.id}
+            id={novel.id}
+            title={novel.title}
+            name={`by ${novel.author.nameFirst} ${novel.author.nameLast}`}
+          />
         ))
       }
     </div>

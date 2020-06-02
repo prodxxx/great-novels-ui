@@ -1,6 +1,6 @@
 import express from 'express'
-import { getAllNovels, getNovelsByTitle } from './controllers/novels'
 import path from 'path'
+import { getAllNovels, getNovelsByTitle } from './controllers/novels'
 
 
 const app = express()
