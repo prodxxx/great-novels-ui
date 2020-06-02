@@ -1,29 +1,21 @@
-const models = require('../models')
+import models from '../models'
 
-const getAllNovels = async (request, response) => {
-  const novels = await models.Novels.findAll({
-    include: [{ model: models.Authors }, { model: models.Genres }]
-  })
+export const getAllNovels = async (request, response) => {
+  const novels = await models.Novels.findAll({ include: [{ model: models.Authors }, { model: models.Genres }] })
 
   return response.send(novels)
 }
 
-const getNovelByIdOrTitle = async (request, response) => {
+export const getNovelsByTitle = async (request, response) => {
   const { identifier } = request.params
 
-  const novel = await models.Novels.findOne({
+  const novels = await models.Novels.findAll({
     where: {
-      [models.Sequelize.Op.or]: [
-        { id: identifier },
-        { title: { [models.Sequelize.Op.like]: `%${identifier}%` } },
-      ]
+      title: { [models.Sequelize.Op.like]: `%${identifier}%` },
     },
-    include: [{ model: models.Authors }, { model: models.Genres }]
   })
 
-  return novel
-    ? response.send(novel)
+  return novels
+    ? response.send(novels)
     : response.sendStatus(404)
 }
-
-module.exports = { getAllNovels, getNovelByIdOrTitle }
